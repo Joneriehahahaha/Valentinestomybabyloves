@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Valentine's Day</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #ff69b4, #ff1493);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .screen {
+        display: none;
+      }
+
+      .screen.active {
+        display: block;
+        animation: fadeIn 0.8s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        color: #ff1493;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      input {
+        width: 100%;
+        padding: 15px;
+        margin: 12px 0;
+        border: 2px solid #ff69b4;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #ff1493;
+        box-shadow: 0 0 10px rgba(255, 20, 147, 0.2);
+      }
+
+      button {
+        background: linear-gradient(45deg, #ff1493, #ff69b4);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 12px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 15px 0;
+        box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+      }
+
+      .no-button {
+        background: linear-gradient(45deg, #ff6b6b, #ff8585);
+        position: relative;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        margin: 30px 0;
+        min-height: 60px;
+      }
+
+      .photo-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 30px 0;
+        padding: 20px;
+      }
+
+      .photo {
+        width: 100%;
+        aspect-ratio: 1;
+        background: #fff;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .photo:hover {
+        transform: translateY(-5px);
+      }
+
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.8);
+        animation: float 6s infinite linear;
+      }
+
+      p {
+        font-size: 18px;
+        color: #333;
+        margin: 15px 0;
+        line-height: 1.6;
+      }
+
+      #plans p {
+        background: rgba(255, 105, 180, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 25px;
+        }
+
+        .photo-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        h1 {
+          font-size: 2em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .photo-container {
+          grid-template-columns: 1fr;
+        }
+
+        .button-container {
+          flex-direction: column;
+          gap: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floating-hearts"></div>
+
+    <div class="container">
+      <!-- Login Screen -->
+      <div id="loginScreen" class="screen active">
+        <h1>Input Our Special Day !!! 💝</h1>
+        <p>KUNG WRONG NI NAA KAY LAIN (MMDDYY)</p>
+        <input
+          type="password"
+          id="anniversaryCode"
+          placeholder="Enter our anniversary date..."
+        />
+        <button onclick="checkAnniversary()">Continue</button>
+      </div>
+
+      <!-- Main Valentine Screen -->
+      <div id="valentineScreen" class="screen">
+        <h1>💝</h1>
+        <div class="photo-container">
+          <div class="photo">
+            <img src="./public/images/Photo 1.jpg" alt="Our Memory 1" />
+          </div>
+          <div class="photo">
+            <img src="./public/images/Photo 2.jpg" alt="Our Memory 2" />
+          </div>
+          <div class="photo">
+            <img src="./public/images/Photo 3.jpg" alt="Our Memory 3" />
+          </div>
+          <div class="photo">
+            <img src="./public/images/Photo 4.jpg" alt="Our Memory 4" />
+          </div>
+          <div class="photo">
+            <img src="./public/images/Photo 5.jpg" alt="Our Memory 5" />
+          </div>
+          <div class="photo">
+            <img src="./public/images/Photo 6.jpg" alt="Our Memory 6" />
+          </div>
+        </div>
+        <p>HAPPY VALENTINE'S DAY 🌹</p>
+        <div class="button-container">
+          <button onclick="showPlanningScreen()">iLOVE YOU 💕</button>
+          <button id="noButton" class="no-button">Dili ko 💔</button>
+        </div>
+      </div>
+
+      <!-- Planning Screen -->
+      <div id="planningScreen" class="screen">
+        <h1>Let's Plan Our Special Day!</h1>
+        <input
+          type="text"
+          id="location"
+          placeholder="Where would you like to go?"
+        />
+        <input
+          type="text"
+          id="food"
+          placeholder="What would you like to eat?"
+        />
+        <button onclick="showFinalScreen()">Submit</button>
+      </div>
+
+      <!-- Final Screen -->
+      <div id="finalScreen" class="screen">
+        <h1>Perfect! 💖</h1>
+        <p>I can't wait to spend Valentine's Day with you Pero ikay bayad kay gipit ko hahaha !</p>
+        <div id="plans"></div>
+        <p>I love you! Love always Baby !!!💝</p>
+      </div>
+    </div>
+
+    <script>
+      // Create floating hearts
+      function createHearts() {
+        const container = document.querySelector(".floating-hearts");
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerHTML = "💝";
+          heart.style.left = Math.random() * 100 + "vw";
+          container.appendChild(heart);
+          setTimeout(() => heart.remove(), 6000);
+        }, 300);
+      }
+
+      createHearts();
+
+      // Screen navigation functions
+      function showScreen(screenId) {
+        document.querySelectorAll(".screen").forEach((screen) => {
+          screen.classList.remove("active");
+        });
+        document.getElementById(screenId).classList.add("active");
+      }
+
+      function checkAnniversary() {
+        const code = document.getElementById("anniversaryCode").value;
+        if (code === "020720") {
+          showScreen("valentineScreen");
+        } else {
+          alert("That's not our anniversary date! Try again, love! 💕");
+        }
+      }
+
+      function showPlanningScreen() {
+        showScreen("planningScreen");
+      }
+
+      function showFinalScreen() {
+        const location = document.getElementById("location").value;
+        const food = document.getElementById("food").value;
+
+        const plansHTML = `
+          <p>We'll go to: ${location}</p>
+          <p>And enjoy: ${food}</p>
+        `;
+
+        document.getElementById("plans").innerHTML = plansHTML;
+        showScreen("finalScreen");
+      }
+
+      // No button functionality
+      const noButton = document.getElementById("noButton");
+      const noTexts = [
+        "Ahh kuyawa i No man lang?? 🥺",
+        "Sure nana? 😢",
+        "Babyyyyyyy 🥹",
+        "Peace nata wakoy bayot diri 💝",
+        "💔",
+        "💔💔 💔",
+        "Laina 😭",
+        "Please?! 🙏",
+        
+      ];
+      let textIndex = 0;
+
+      noButton.addEventListener("mouseover", function () {
+        const x = Math.random() * (window.innerWidth - this.offsetWidth);
+        const y = Math.random() * (window.innerHeight - this.offsetHeight);
+
+        const maxX = window.innerWidth - this.offsetWidth;
+        const maxY = window.innerHeight - this.offsetHeight;
+        const safeX = Math.min(Math.max(0, x), maxX);
+        const safeY = Math.min(Math.max(0, y), maxY);
+
+        this.style.position = "fixed";
+        this.style.left = safeX + "px";
+        this.style.top = safeY + "px";
+
+        this.textContent = noTexts[textIndex];
+        textIndex = (textIndex + 1) % noTexts.length;
+      });
+
+      document.addEventListener("mouseleave", function () {
+        noButton.style.position = "relative";
+        noButton.style.left = "auto";
+        noButton.style.top = "auto";
+      });
+    </script>
+  </body>
+</html>
